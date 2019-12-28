@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.model.Usuario;
@@ -26,6 +28,7 @@ public class UsuarioController {
 	private UsuarioRepository ur;
 	
 	@PostMapping(path="/salvar")
+	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Usuario salvar(@Valid @RequestBody Usuario usuario) {
 		ur.save(usuario);
 		return usuario;
@@ -38,7 +41,6 @@ public class UsuarioController {
 	
 	@GetMapping(path="/listar/{id}")
 	public Usuario buscarPeloId(@PathVariable("id") long id){
-		System.out.println(id);
 		Usuario usuario = ur.findById(id);
 		return usuario;
 	}
