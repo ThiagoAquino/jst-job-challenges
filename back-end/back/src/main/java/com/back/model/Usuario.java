@@ -1,14 +1,17 @@
 package com.back.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
 
 @Entity
 @Table(name="USUARIOS")
@@ -33,6 +36,10 @@ public class Usuario implements Serializable {
 	@NotEmpty
 	@Column(name="funcao")
 	private String funcao;
+	
+	
+	@ManyToMany
+	private Set<Role> roles;
 	
 	
 	public Usuario(String nome, String senha, String funcao) {
@@ -72,6 +79,13 @@ public class Usuario implements Serializable {
 		this.funcao = funcao;
 	}
 
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 	
 	
 }
